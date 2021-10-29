@@ -1,6 +1,5 @@
 "use strict";
 const vscode = require("vscode");
-const subprocess = require("child_process");
 const tasks = require("./src/tasks");
 const rrcmd = require("./src/rrcommands");
 
@@ -8,7 +7,7 @@ const rrcmd = require("./src/rrcommands");
  * @param { vscode.ExtensionContext } context
  */
 function activate(context) {
-  let type = "rrcfg-tools";
+  const type = "rrcfg-tools";
   vscode.tasks.registerTaskProvider(type, {
     provideTasks() {
       return tasks.getTasks(type);
