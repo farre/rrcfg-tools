@@ -81,7 +81,7 @@ function register_rrCommands(context) {
 let tasks = [];
 /** @param context vscode.ExtensionContext*/
 function activate(context) {
-  
+
   vscode.tasks.registerTaskProvider(type, {
     provideTasks() {
       const scope = vscode.TaskScope.Workspace;
