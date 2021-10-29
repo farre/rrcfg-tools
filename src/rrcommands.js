@@ -1,30 +1,24 @@
 const vscode = require("vscode");
 
+/// rr commands registered with the extension
+const rrCommandNames = ["reverse-continue", "reverse-step", "reverse-next", "reverse-finish"];
+
 /** Creates Disposable for subscribing to extension context, for rr commands
- *  - reverse step
- *  - reverse continue
- * @param {string} type
+ * @param {string} extension_name - the name of this extension.
  */
-function getCommands(type) {
-  let rev_continue = vscode.commands.registerCommand(`${type}.reverseContinue`, () => {
-    let expr = { expression: '-exec reverse-continue', context: 'repl' };
-    if(vscode.debug.activeDebugSession) {
-      vscode.debug.activeDebugSession.customRequest("evaluate", expr);
-    } else {
-      // TODO(simon): change so that this command is disabled, when no active debug session exists
-      vscode.window.showErrorMessage(`${type} command 'reverse continue' failed: No active debug session.`);
-    }
-  });
-  let rev_step = vscode.commands.registerCommand(`${type}.reverseStep`, () => {
-    let expr = { expression: '-exec reverse-step', context: 'repl' };
-    if(vscode.debug.activeDebugSession) {
-      vscode.debug.activeDebugSession.customRequest("evaluate", expr);
-    } else {
-      // TODO(simon): change so that this command is disabled, when no active debug session exists
-      vscode.window.showErrorMessage(`${type} command 'reverse step' failed: No active debug session.`);
-    }
-  });
-  return [rev_continue, rev_step];
+function getCommands(extension_name) {
+  const mapNameToCommand = (name) => {
+    return vscode.commands.registerCommand(`${extension_name}.${name}`, () => {
+      let expr = { expression: `-exec ${name}`, context: 'repl' };
+      if(vscode.debug.activeDebugSession) {
+        vscode.debug.activeDebugSession.customRequest("evaluate", expr);
+      } else {
+        // TODO(simon): change so that this command is disabled, when no active debug session exists
+        vscode.window.showErrorMessage(`${extension_name} command '${name}' failed: No active debug session.`);
+      }
+    })
+  };
+  return rrCommandNames.map(mapNameToCommand);
 }
 
 module.exports = {
