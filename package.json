@@ -10,31 +10,33 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:rrcfg-tools.helloWorld"
+    "*",
+    "onCommand:workbench.action.tasks.runTask",
+    "onCommand:workbench.action.tasks.reRunTask"
   ],
   "main": "./extension.js",
+  "publisher": "farre",
   "contributes": {
-    "commands": [
-      {
-        "command": "rrcfg-tools.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "configuration": [
       {
         "title": "rrcfg-tools",
         "properties": {
-          "rr.address": {
+          "rrcfg-tools.address": {
             "type": "string",
             "default": "localhost",
             "description": "Address where rr is running"
           },
-          "rr.post": {
+          "rrcfg-tools.port": {
             "type": "integer",
             "default": 50505,
-            "description": "Address where rr is running"
+            "description": "Port where rr is running"
           }
         }
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "rrcfg-tools"
       }
     ]
   },
@@ -55,7 +57,6 @@
     "@vscode/test-electron": "^1.6.2"
   },
   "extensionDependencies": [
-    "ms-vscode.cpptools",
-    "augustocdias.tasks-shell-input"
+    "ms-vscode.cpptools"
   ]
 }

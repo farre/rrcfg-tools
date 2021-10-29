@@ -1,38 +1,93 @@
+"use strict";
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
+const subprocess = require("child_process");
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
-/**
- * @param {vscode.ExtensionContext} context
- */
-function activate(context) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "rrcfg-tools" is now active!');
+function start() {
+  const pty = {
+    writeEmitter: new vscode.EventEmitter(),
+    closeEmitter: new vscode.EventEmitter(),
+    onDidWrite: this.writeEmitter.event,
+    onDidClose: this.closeEmitter.event,
+    constructor() {},
+    open() {
+      let configuration = vscode.workspace.getConfiguration("rrcfg-tools");
+      let port = configuration.get("port");
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with  registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand(
-    "rrcfg-tools.helloWorld",
-    function () {
-      // The code you place here will be executed every time your command is executed
+      const rrps = `rr ps | awk 'BEGIN { OFS = ","; printf "["; sep="" } NR!=1 { printf "%s{ \\"value\\": %d,\\"label\\": \\"%d\\",\\"description\\": \\"%s\\",\\"detail\\": \\"foo\\"}",sep,$1,$3,substr($0, index($0, $4));sep=","}END {print "]"}'`;
 
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        "Hello World from rr configuration tools!"
+      const options = {
+        canPickMany: false,
+        ignoreFocusOut: true,
+      };
+
+      /** @type Thenable<readonly (vscode.QuickPickItem & {value: string})[]> */
+      let processes = new Promise((resolve, reject) => {
+        subprocess.exec(rrps, (error, stdout, stderr) => {
+          if (error) {
+            reject(stderr);
+          } else {
+            resolve(JSON.parse(stdout));
+          }
+        });
+      });
+
+      vscode.window.showQuickPick(processes, options).then((selection) => {
+        subprocess.execSync(`rr replay -s ${port} -p ${selection.value} -k`, {
+          encoding: "utf8",
+        });
+        this.closeEmitter.fire(0);
+      });
+    },
+    handleInput(key) {
+      this.writeEmitter.fire(key);
+    },
+    close() {},
+  };
+
+  return Promise.resolve(pty);
+}
+
+let tasks = [];
+
+function activate() {
+  let type = "rrcfg-tools";
+  vscode.tasks.registerTaskProvider(type, {
+    provideTasks() {
+      const scope = vscode.TaskScope.Workspace;
+      if (tasks.length) {
+        return tasks;
+      }
+
+      let definition = { type: type };
+      tasks.push(
+        new vscode.Task(
+          definition,
+          scope,
+          "start",
+          "rrcfg-tools",
+          new vscode.CustomExecution(start)
+        )
       );
-    }
-  );
 
-  context.subscriptions.push(disposable);
+      return tasks;
+    },
+    async resolveTask(task) {
+      return task;
+    },
+  });
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+  for (let task of tasks) {
+    task.dispose();
+  }
+}
 
 module.exports = {
   activate,
