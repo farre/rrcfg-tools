@@ -3,6 +3,10 @@
   "displayName": "rr configuration tools",
   "description": "Tools for configuring and interacting with rr",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farre/rrcfg-tools.git"
+  },
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -15,6 +19,9 @@
     "onCommand:workbench.action.tasks.reRunTask"
   ],
   "main": "./extension.js",
+  "directories": {
+    "src": "./src"
+  },
   "publisher": "farre",
   "contributes": {
     "configuration": [
