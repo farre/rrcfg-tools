@@ -48,6 +48,16 @@
       {
         "type": "rrcfg-tools"
       }
+    ],
+    "keybindings":[
+      {
+        "command": "rrcfg-tools.reverseContinue",
+        "key": "ctrl+f5"
+      },
+      {
+        "command": "rrcfg-tools.reverseStep",
+        "key": "ctrl+F10"
+      }
     ]
   },
   "scripts": {
