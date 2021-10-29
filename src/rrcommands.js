@@ -5,7 +5,7 @@ const vscode = require("vscode");
  *  - reverse continue
  * @param {string} type
  */
-export function getCommands(type) {
+function getCommands(type) {
   let rev_continue = vscode.commands.registerCommand(`${type}.reverseContinue`, () => {
     let expr = { expression: '-exec reverse-continue', context: 'repl' };
     if(vscode.debug.activeDebugSession) {
@@ -26,3 +26,7 @@ export function getCommands(type) {
   });
   return [rev_continue, rev_step];
 }
+
+module.exports = {
+  getCommands
+};
