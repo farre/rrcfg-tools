@@ -41,11 +41,31 @@
         }
       }
     ],
+    "commands": [
+      {
+        "command": "rrcfg-tools.reverseContinue",
+        "title": "rr: reverse continue"
+      },
+      {
+        "command": "rrcfg-tools.reverseStep",
+        "title": "rr: reverse step"
+      }
+    ],
     "taskDefinitions": [
       {
         "type": "rrcfg-tools"
       }
-    ]
+    ],
+    "keybindings":[
+      {
+        "command": "rrcfg-tools.reverseContinue",
+        "key": "ctrl+f5"
+      },
+      {
+        "command": "rrcfg-tools.reverseStep",
+        "key": "ctrl+F10"
+      }
+    ],
   },
   "scripts": {
     "lint": "eslint .",
