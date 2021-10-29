@@ -1,26 +1,35 @@
 "use strict";
 const vscode = require("vscode");
-const tasks = require("./src/tasks");
 const rrcmd = require("./src/rrcommands");
+const tasks = require("./src/tasks");
 
+let taskProvider;
 /**
  * @param { vscode.ExtensionContext } context
  */
 function activate(context) {
   const type = "rrcfg-tools";
-  vscode.tasks.registerTaskProvider(type, {
-    provideTasks() {
-      return tasks.getTasks(type);
-    },
-    async resolveTask(task) {
-      return task;
-    },
-  });
+  const workspaceRoot =
+    vscode.workspace.workspaceFolders &&
+    vscode.workspace.workspaceFolders.length > 0
+      ? vscode.workspace.workspaceFolders[0].uri.fsPath
+      : undefined;
+  if (!workspaceRoot) {
+    return;
+  }
   context.subscriptions.push(...rrcmd.getCommands(type));
+  taskProvider = vscode.tasks.registerTaskProvider(
+    "rrcfg-tools",
+    new tasks.TaskProvider()
+  );
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+  if (taskProvider) {
+    taskProvider.dispose();
+  }
+}
 
 module.exports = {
   activate,

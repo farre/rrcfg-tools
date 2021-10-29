@@ -61,10 +61,18 @@
     ],
     "taskDefinitions": [
       {
-        "type": "rrcfg-tools"
+        "type": "rrcfg-tools",
+        "required": [
+          "task"
+        ],
+        "properties": {
+          "task": {
+            "type": "string"
+          }
+        }
       }
     ],
-    "keybindings":[
+    "keybindings": [
       {
         "command": "rrcfg-tools.reverse-continue",
         "key": "ctrl+f5"
@@ -81,15 +89,15 @@
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.61.0",
     "@types/glob": "^7.1.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "14.x",
+    "@types/vscode": "^1.61.0",
+    "@vscode/test-electron": "^1.6.2",
     "eslint": "^7.32.0",
     "glob": "^7.1.7",
     "mocha": "^9.1.1",
-    "typescript": "^4.4.3",
-    "@vscode/test-electron": "^1.6.2"
+    "typescript": "^4.4.3"
   },
   "extensionDependencies": [
     "ms-vscode.cpptools"
