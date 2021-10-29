@@ -53,8 +53,8 @@ function start() {
 }
 
 let tasks = [];
-
-function activate() {
+/** @param context vscode.ExtensionContext*/
+function activate(context) {
   let type = "rrcfg-tools";
   vscode.tasks.registerTaskProvider(type, {
     provideTasks() {
@@ -80,6 +80,28 @@ function activate() {
       return task;
     },
   });
+
+  let rev_continue = vscode.commands.registerCommand(`${type}.reverseContinue`, () => {
+	let expr = { expression: '-exec reverse-continue', context: 'repl' };
+		if(vscode.debug.activeDebugSession) {
+			vscode.debug.activeDebugSession.customRequest("evaluate", expr);
+		} else {
+			// TODO(simon): change so that this command is disabled, when no active debug session exists
+			vscode.window.showErrorMessage(`${type} command 'reverse continue' failed: No active debug session.`);
+		}
+  });
+
+  let rev_step = vscode.commands.registerCommand(`${type}.reverseStep`, () => {
+	let expr = { expression: '-exec reverse-step', context: 'repl' };
+	if(vscode.debug.activeDebugSession) {
+		vscode.debug.activeDebugSession.customRequest("evaluate", expr);
+	} else {
+		// TODO(simon): change so that this command is disabled, when no active debug session exists
+		vscode.window.showErrorMessage(`${type} command 'reverse step' failed: No active debug session.`);
+	}
+  });
+
+  context.subscriptions.push([rev_continue, rev_step]);
 }
 
 // this method is called when your extension is deactivated

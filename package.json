@@ -34,6 +34,16 @@
         }
       }
     ],
+    "commands": [
+      {
+        "command": "rrcfg-tools.reverseContinue",
+        "title": "rr: reverse continue"
+      },
+      {
+        "command": "rrcfg-tools.reverseStep",
+        "title": "rr: reverse step"
+      }
+    ],
     "taskDefinitions": [
       {
         "type": "rrcfg-tools"
