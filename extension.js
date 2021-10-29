@@ -2,6 +2,7 @@
 const vscode = require("vscode");
 const subprocess = require("child_process");
 const tasks = require("./src/tasks");
+const rrcmd = require("./src/rrcommands");
 
 function activate() {
   let type = "rrcfg-tools";
