@@ -1,6 +1,6 @@
 const vscode = require("vscode");
 
-/** Registers subscriptions for rr commands
+/** Creates Disposable for subscribing to extension context, for rr commands
  *  - reverse step
  *  - reverse continue
  * @param {string} type
