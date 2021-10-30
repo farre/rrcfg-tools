@@ -44,7 +44,8 @@
           },
           "rrcfg.cwd": {
             "type": "string",
-            "description": "Location of binary to debug"
+            "description": "Location of binary to debug",
+            "default": "${workspaceFolder}"
           }
         }
       }
@@ -125,8 +126,8 @@
               "windows": {
                 "MIMode": "gdb"
               },
-              "preLaunchTask": "rrcfg: start",
-              "postDebugTask": "rrcfg: stop"
+              "preLaunchTask": "rrcfg-tools: start",
+              "postDebugTask": "rrcfg-tools: stop"
           }
           }
         ]
