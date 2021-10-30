@@ -109,10 +109,10 @@
     "keybindings": [
       {
         "command": "rrcfg-tools.reverse-continue",
-        "key": "ctrl+f5"
+        "key": "ctrl+F5"
       },
       {
-        "command": "rrcfg-tools.reverse-step",
+        "command": "rrcfg-tools.reverse-next",
         "key": "ctrl+F10"
       }
     ],
