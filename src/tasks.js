@@ -62,7 +62,8 @@ class TaskProvider {
       this.#type,
       new vscode.CustomExecution(async () => {
         return this.getTerminal(action);
-      })
+      }),
+      [""]
     );
   }
 
