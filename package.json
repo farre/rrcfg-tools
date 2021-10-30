@@ -28,15 +28,23 @@
       {
         "title": "rrcfg-tools",
         "properties": {
-          "rrcfg-tools.address": {
+          "rrcfg.address": {
             "type": "string",
             "default": "localhost",
             "description": "Address where rr is running"
           },
-          "rrcfg-tools.port": {
+          "rrcfg.port": {
             "type": "integer",
             "default": 50505,
             "description": "Port where rr is running"
+          },
+          "rrcfg.bin": {
+            "type": "string",
+            "description": "Location of binary to debug"
+          },
+          "rrcfg.cwd": {
+            "type": "string",
+            "description": "Location of binary to debug"
           }
         }
       }
@@ -80,6 +88,48 @@
       {
         "command": "rrcfg-tools.reverse-step",
         "key": "ctrl+F10"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "cppdbg",
+        "languages": ["c", "cpp"],
+        "label": "rrcfg configuration for cppdbg",
+        "configurationSnippets": [
+          {
+            "label": "rrcfg configuration for cppdbg",
+            "description": "Configuration for using rr debugging",
+            "body": {
+              "name": "rr",
+              "type": "cppdbg",
+              "request": "launch",
+              "program": "^\"\\${config:rrcfg.bin}\"",
+              "args": [],
+              "miDebuggerServerAddress": "^\"\\${config:rrcfg.address}:\\${config:rrcfg.port}\"",
+              "stopAtEntry": true,
+              "cwd": "^\"\\${config:rrcfg.cwd}\"",
+              "environment": [],
+              "linux": {
+                "MIMode": "gdb",
+                "setupCommands": [
+                  {
+                      "description": "Setup to resolve symbols",
+                      "text": "set sysroot /",
+                      "ignoreFailures": false
+                  }
+                ]
+              },
+              "osx": {
+                "MIMode": "gdb"
+              },
+              "windows": {
+                "MIMode": "gdb"
+              },
+              "preLaunchTask": "rrcfg: start",
+              "postDebugTask": "rrcfg: stop"
+          }
+          }
+        ]
       }
     ]
   },
