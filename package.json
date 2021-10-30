@@ -45,7 +45,7 @@
           "rrcfg-tools.cwd": {
             "type": "string",
             "description": "Location of binary to debug",
-            "default": "${workspaceFolder}"
+            "default": "${workspaceRoot}"
           }
         }
       }
