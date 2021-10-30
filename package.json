@@ -37,6 +37,15 @@
             "type": "integer",
             "default": 50505,
             "description": "Port where rr is running"
+          },
+          "rrcfg-tools.bin": {
+            "type": "string",
+            "description": "Location of binary to debug"
+          },
+          "rrcfg-tools.cwd": {
+            "type": "string",
+            "description": "Location of binary to debug",
+            "default": "${workspaceRoot}"
           }
         }
       }
@@ -80,6 +89,48 @@
       {
         "command": "rrcfg-tools.reverse-next",
         "key": "ctrl+F10"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "cppdbg",
+        "languages": ["c", "cpp"],
+        "label": "rrcfg configuration for cppdbg",
+        "configurationSnippets": [
+          {
+            "label": "rrcfg configuration for cppdbg",
+            "description": "Configuration for using rr debugging",
+            "body": {
+              "name": "rr",
+              "type": "cppdbg",
+              "request": "launch",
+              "program": "^\"\\${config:rrcfg-tools.bin}\"",
+              "args": [],
+              "miDebuggerServerAddress": "^\"\\${config:rrcfg-tools.address}:\\${config:rrcfg-tools.port}\"",
+              "stopAtEntry": true,
+              "cwd": "^\"\\${config:rrcfg-tools.cwd}\"",
+              "environment": [],
+              "linux": {
+                "MIMode": "gdb",
+                "setupCommands": [
+                  {
+                      "description": "Setup to resolve symbols",
+                      "text": "set sysroot /",
+                      "ignoreFailures": false
+                  }
+                ]
+              },
+              "osx": {
+                "MIMode": "gdb"
+              },
+              "windows": {
+                "MIMode": "gdb"
+              },
+              "preLaunchTask": "rrcfg-tools: start",
+              "postDebugTask": "rrcfg-tools: stop"
+          }
+          }
+        ]
       }
     ]
   },
