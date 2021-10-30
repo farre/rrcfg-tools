@@ -81,6 +81,31 @@
         }
       }
     ],
+    "problemMatchers": [
+      {
+        "owner": "rrcfg-tools",
+        "name": "rrstartMatcher",
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "."
+        },
+        "fileLocation": [
+          "relative",
+          "/"
+        ],
+        "label": "rrcfg-tools start/stop matcher",
+        "applyTo": "allDocuments"
+      }
+    ],
     "keybindings": [
       {
         "command": "rrcfg-tools.reverse-continue",
