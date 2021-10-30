@@ -102,7 +102,7 @@
           "relative",
           "/"
         ],
-        "label": "rrcfg-tools: start",
+        "label": "rrcfg-tools start/stop matcher",
         "applyTo": "allDocuments"
       }
     ],
