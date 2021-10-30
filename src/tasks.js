@@ -55,15 +55,18 @@ class TaskProvider {
 
   getTask(action) {
     const definition = { type: this.#type, task: action };
-    return new vscode.Task(
+    let t = new vscode.Task(
       definition,
       vscode.TaskScope.Workspace,
       definition.task,
       this.#type,
       new vscode.CustomExecution(async () => {
         return this.getTerminal(action);
-      })
+      }),
+      "rrstartMatcher"
     );
+    t.isBackground = true;
+    return t;
   }
 
   getTerminal(action) {
