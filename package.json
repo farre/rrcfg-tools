@@ -28,21 +28,21 @@
       {
         "title": "rrcfg-tools",
         "properties": {
-          "rrcfg.address": {
+          "rrcfg-tools.address": {
             "type": "string",
             "default": "localhost",
             "description": "Address where rr is running"
           },
-          "rrcfg.port": {
+          "rrcfg-tools.port": {
             "type": "integer",
             "default": 50505,
             "description": "Port where rr is running"
           },
-          "rrcfg.bin": {
+          "rrcfg-tools.bin": {
             "type": "string",
             "description": "Location of binary to debug"
           },
-          "rrcfg.cwd": {
+          "rrcfg-tools.cwd": {
             "type": "string",
             "description": "Location of binary to debug",
             "default": "${workspaceFolder}"
@@ -104,11 +104,11 @@
               "name": "rr",
               "type": "cppdbg",
               "request": "launch",
-              "program": "^\"\\${config:rrcfg.bin}\"",
+              "program": "^\"\\${config:rrcfg-tools.bin}\"",
               "args": [],
-              "miDebuggerServerAddress": "^\"\\${config:rrcfg.address}:\\${config:rrcfg.port}\"",
+              "miDebuggerServerAddress": "^\"\\${config:rrcfg-tools.address}:\\${config:rrcfg-tools.port}\"",
               "stopAtEntry": true,
-              "cwd": "^\"\\${config:rrcfg.cwd}\"",
+              "cwd": "^\"\\${config:rrcfg-tools.cwd}\"",
               "environment": [],
               "linux": {
                 "MIMode": "gdb",
