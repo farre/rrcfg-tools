@@ -1,65 +1,73 @@
 # rrcfg-tools README
 
-This is the README for your extension "rrcfg-tools". After writing up a brief description, we recommend including the following sections.
+This extension adds functionality for configuring, starting, and interacting with the [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running (rr)[https://rr-project.org/].
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Configuring basic (rr)[https://rr-project.org/] settings.
+- Snippets for creating a [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) launch configuration
+- Tasks for starting and stopping (rr)[https://rr-project.org/] debugging.
+- Short-cuts for `reverse-next` and `reverse-continue`
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+To use this extension (rr)[https://rr-project.org/] needs to be installed and accessible from the `PATH`.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+This extension provides the following VS Code settings:
 
-For example:
+- `rrcfg-tools.hostname`: the hostname where (rr)[https://rr-project.org/] is running
+- `rrcfg-tools.port`: the port where (rr)[https://rr-project.org/] listens
+- `rrcfg-tools.cwd`: the full path to the binary to be debugged
+- `rrcfg-tools.bin`: the full path to the directory of the binary to be debugged
 
-This extension contributes the following settings:
+## Extension Commands
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+This extension provides the following VS Code commands:
+
+- `rrcfg-tools.reverse-continue`
+- `rrcfg-tools.reverse-step`
+- `rrcfg-tools.reverse-next`
+- `rrcfg-tools.reverse-finish`
+
+all of which map to the corresponding (rr)[https://rr-project.org/].
+
+## Extension Tasks
+
+This extension provides the following VS Code tasks:
+
+- `rrcfg-tools: start`: starts (rr)[https://rr-project.org/] and begins debugging. Intended to be used as a `preLaunchTask` for [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools).
+- `rrcfg-tools: stop`: stops (rr)[https://rr-project.org/] and ends debugging. Intended to be used as a `postDebugTask` for [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools).
+
+## Extension Snippets
+
+This extension provides the following VS Code snippet:
+
+- `TODO(farre): what is the name of the snippet`: Template for generate a [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json` configuration compatible with running (rr)[https://rr-project.org/] from this extension.
+
+## Extension Short-Cuts
+
+This extension provides the following VS Code short-cuts:
+
+- `Ctrl-F5`: reverse-next
+- `Ctrl-F10`: reverse-continue
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Currently these limitations are known:
+
+- `rrcfg-tools.hostname` actually doesn't do much.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+First release of `rrcfg-tools`!
 
-### 1.0.1
+This release introduce following changes:
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- Configuring debugging for (rr)[https://rr-project.org/]
+- Starting and stopping using tasks usable from [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
+- Commands for interacting with (rr)[https://rr-project.org/], with appropriate short-cuts
+- Easy template insertion for creating (rr)[https://rr-project.org/] configuration for [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
