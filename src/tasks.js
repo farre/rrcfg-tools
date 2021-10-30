@@ -19,6 +19,11 @@ function getAlternatives() {
   return picks;
 }
 
+const Action = {
+  Start: "start",
+  Stop: "stop",
+};
+
 class TaskProvider {
   #type = "rrcfg-tools";
   #tasks = [];
@@ -41,40 +46,32 @@ class TaskProvider {
       return this.#tasks;
     }
 
-    for (let name of ["start", "stop"]) {
-      this.#tasks.push(this.getTask(name));
+    for (let action of [Action.Start, Action.Stop]) {
+      this.#tasks.push(this.getTask(action));
     }
 
     return this.#tasks;
   }
 
-  getTask(name) {
-    const definition = { type: this.#type, task: name };
+  getTask(action) {
+    const definition = { type: this.#type, task: action };
     return new vscode.Task(
       definition,
       vscode.TaskScope.Workspace,
-      name,
+      definition.task,
       this.#type,
       new vscode.CustomExecution(async () => {
-        return this.getTerminal(name);
-      }),
-      [""]
+        return this.getTerminal(action);
+      })
     );
   }
 
-  getTerminal(name) {
+  getTerminal(action) {
     if (!this.#terminal) {
       this.#terminal = new TaskTerminal();
     }
 
-    switch (name) {
-      case "start":
-        break;
-      case "stop":
-        break;
-      default:
-        break;
-    }
+    this.#terminal.setAction(action);
 
     return this.#terminal;
   }
@@ -82,6 +79,7 @@ class TaskProvider {
 
 class TaskTerminal {
   #process = null;
+  #action = Action.Start;
 
   constructor() {
     this.writeEmitter = new vscode.EventEmitter();
@@ -90,8 +88,19 @@ class TaskTerminal {
     this.onDidClose = this.closeEmitter.event;
   }
 
+  setAction(action) {
+    this.#action = action;
+  }
+
   open(initialDimensions) {
-    this.start();
+    switch (this.#action) {
+      case Action.Start:
+        this.start();
+        break;
+      case Action.Stop:
+        this.stop();
+        break;
+    }
   }
 
   close() {}
@@ -136,7 +145,22 @@ class TaskTerminal {
             this.writeEmitter.fire(`${err}`);
             console.log(err);
           });
+
+          this.#process = process;
         });
+    });
+  }
+
+  async stop() {
+    return new Promise((resolve, reject) => {
+      if (!this.#process) {
+        return;
+      }
+
+      let process = this.#process;
+      this.#process = null;
+
+      process.kill();
     });
   }
 }
