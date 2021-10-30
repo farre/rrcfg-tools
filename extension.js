@@ -1,6 +1,6 @@
 "use strict";
 const vscode = require("vscode");
-const rrcmd = require("./src/rrcommands");
+const commands = require("./src/commands");
 const tasks = require("./src/tasks");
 
 let taskProvider;
@@ -17,7 +17,7 @@ function activate(context) {
   if (!workspaceRoot) {
     return;
   }
-  context.subscriptions.push(...rrcmd.getCommands(type));
+  context.subscriptions.push(...commands.getCommands(type));
   taskProvider = vscode.tasks.registerTaskProvider(
     "rrcfg-tools",
     new tasks.TaskProvider()
