@@ -53,6 +53,10 @@ This extension provides the following VS Code short-cuts:
 - `Ctrl-F5`: reverse-next
 - `Ctrl-F10`: reverse-continue
 
+## Installation
+
+Download the latest [release](https://github.com/farre/rrcfg-tools/releases/tag/v1.0.0) and install extension from file. Marketplace submission pending.
+
 ## Configuring a project using the extension and start a debug session
 
 The process of adding (rr)[https://rr-project.org/] debugging is streamlined using this extension. The steps are as following:
