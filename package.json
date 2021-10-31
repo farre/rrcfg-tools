@@ -66,6 +66,10 @@
       {
         "command": "rrcfg-tools.reverse-finish",
         "title": "rr: reverse finish"
+      },
+      {
+        "command": "rrcfg-tools.watch",
+        "title": "rr: watch variable"
       }
     ],
     "taskDefinitions": [
@@ -114,6 +118,10 @@
       {
         "command": "rrcfg-tools.reverse-next",
         "key": "ctrl+F10"
+      },
+      {
+        "command": "rrcfg-tools.watch",
+        "key": "ctrl+F1"
       }
     ],
     "debuggers": [
