@@ -18,6 +18,8 @@ function activate(context) {
     return;
   }
   context.subscriptions.push(...commands.getCommands(type));
+  context.subscriptions.push(...commands.getCommandsWithParams(type));
+
   taskProvider = vscode.tasks.registerTaskProvider(
     "rrcfg-tools",
     new tasks.TaskProvider()
