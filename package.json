@@ -2,7 +2,7 @@
   "name": "rrcfg-tools",
   "displayName": "rr configuration tools",
   "description": "Tools for configuring and interacting with rr",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/farre/rrcfg-tools.git"
