@@ -53,11 +53,26 @@ This extension provides the following VS Code short-cuts:
 - `Ctrl-F5`: reverse-next
 - `Ctrl-F10`: reverse-continue
 
+## Configuring a project using the extension and start a debug session
+
+The process of adding (rr)[https://rr-project.org/] debugging is streamlined using this extension. The steps are as following:
+
+1. Got to the `Run and Debug` view and create a `launch.json` file if there isn't any. Make sure to select the `C++` option.
+2. Go to the `launch.json` file in the `.vscode` directory and add a configuration by pressing `Add Configuration...` or by pressing `Ctrl-Space` while having the cursor in the file. Select the configuration `rrcfg configuration for cppdbg`.
+3. In the settings for `rrcfg-tools` add `Workspace` settings for all extension settings. `hostname` and `port` have sane defaults, currently the only valid hostname is 'localhost'. `rrcfg-tools.bin` needs to contain the full path to the binary and `rrcfg-tools.cwd` needs to contain the full path to the directory where the binary resides.
+4. Record something using (rr)[https://rr-project.org/]!
+5. Go to the `Run and Debug` view, from the drop down choose `rr`, the press `F5` or `Start Debugging`
+6. A quick pick drop down will ask for the process to debug.
+
+This will start a debug session using [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running (rr)[https://rr-project.org/] but with (rr)[https://rr-project.org/] as debugger. The regular UI and short-cuts work as expected, but `Ctrl-F5` and `Ctrl-F10` has been added, as well as commands for `reverse-step` and `reverse-finish`.
+
 ## Known Issues
 
 Currently these limitations are known:
 
 - `rrcfg-tools.hostname` actually doesn't do much.
+- Most likely only works for Linux, but doesn't check that.
+- Adding a new `launch.json` and choosing `rrcfg configuration for cppdbg` doesn't work.
 
 ## Release Notes
 
