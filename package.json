@@ -134,7 +134,7 @@
               "request": "launch",
               "program": "^\"\\${config:rrcfg-tools.bin}\"",
               "args": [],
-              "miDebuggerServerAddress": "^\"\\${config:rrcfg-tools.address}:\\${config:rrcfg-tools.port}\"",
+              "miDebuggerServerAddress": "^\"\\${config:rrcfg-tools.hostname}:\\${config:rrcfg-tools.port}\"",
               "stopAtEntry": true,
               "cwd": "^\"\\${config:rrcfg-tools.cwd}\"",
               "environment": [],
