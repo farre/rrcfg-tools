@@ -24,7 +24,7 @@ This extension provides the following VS Code settings:
 
 ## Extension Commands
 
-This extension provides the following VS Code commands:
+This extension provides the following VS Code commands for rr:
 
 - `rrcfg-tools.reverse-continue`
 - `rrcfg-tools.reverse-step`
@@ -32,6 +32,10 @@ This extension provides the following VS Code commands:
 - `rrcfg-tools.reverse-finish`
 
 all of which map to the corresponding [rr](https://rr-project.org/).
+
+The extension also provides the following VS Code Commands:
+
+- `rrcfg-tools.watch`: sets a watchpoint. Whether or not this is a hardware watchpoint or software, depends on your system
 
 ## Extension Tasks
 
@@ -48,10 +52,13 @@ This extension provides the following VS Code configuratoinSnippet:
 
 ## Extension Short-Cuts
 
-This extension provides the following VS Code short-cuts:
+This extension provides the following default VS Code short-cuts:
 
 - `Ctrl-F5`: reverse-next
 - `Ctrl-F10`: reverse-continue
+- `Ctrl-F1`: set watchpoint
+
+Like any VS Code command, these can be set to arbitrary keyboard inputs. `reverse-finish` and `reverse-step` is left to be configured by the user.
 
 ## Configuring a project using the extension and start a debug session
 
