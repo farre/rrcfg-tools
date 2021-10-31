@@ -22,7 +22,7 @@ function getAlternatives() {
     picks.map(({ pid, ppid, exit, cmd }) => {
       return {
         value: pid,
-        label: `${cmd.split(" ") ?? cmd}`,
+        label: `${path.basename(cmd.split(" ")[0] ?? cmd)}`,
         description: `PID: ${pid}, PPID: ${
           ppid === "--" ? "--" : +ppid
         }, EXIT: ${exit}`,
