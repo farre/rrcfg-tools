@@ -131,12 +131,16 @@ class TaskTerminal {
             `${selection.value}`,
             "-k",
           ]);
-          process.stdout.on("data", (data) =>
-            this.writeEmitter.fire(`${data}`)
-          );
-          process.stderr.on("data", (data) =>
-            this.writeEmitter.fire(`err: ${data}`)
-          );
+          process.stdout.on("data", (data) => {
+            for(const line of `${data}`.split("\n")) {
+              this.writeEmitter.fire(`${line}\r\n`);
+            }
+          });
+          process.stderr.on("data", (data) => {
+            for(const line of `${data}`.split("\n")) {
+              this.writeEmitter.fire(`${line}\r\n`);
+            }
+          });
           process.on("close", (code) => {
             // When process dies (i.e. when we tell rr to stop
             // replaying, this is event handler for that. We say
@@ -145,8 +149,10 @@ class TaskTerminal {
             this.closeEmitter.fire(0);
           });
           process.on("error", (err) => {
-            this.writeEmitter.fire(`${err}`);
-            console.log(err);
+            for(const line of `${err}`.split("\n")) {
+              this.writeEmitter.fire(`${line}\r\n`);
+              console.log(`${line}`);
+            }
           });
 
           this.#process = process;
