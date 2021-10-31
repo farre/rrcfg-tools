@@ -122,6 +122,10 @@
       {
         "command": "rrcfg-tools.watch",
         "key": "ctrl+F1"
+      },
+      {
+        "command": "rrcfg-tools.reverse-finish",
+        "key": "ctrl+F11"
       }
     ],
     "debuggers": [
