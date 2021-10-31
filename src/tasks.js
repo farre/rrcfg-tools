@@ -4,12 +4,13 @@ const path = require("path");
 const vscode = require("vscode");
 const subprocess = require("child_process");
 
+/** @type {() => Thenable<readonly (vscode.QuickPickItem & {value: string})[]>} */
 function getAlternatives() {
   const prefix = `'BEGIN { OFS = ","; printf "["; sep="" } NR!=1`;
   const suffix = `END { print "]" }`;
   const json = `\\"pid\\": %d,\\"ppid\\": \\"%s\\",\\"exit\\": \\"%d\\",\\"cmd\\": \\"%s\\"`;
   const rrps = `rr ps | awk ${prefix} { printf "%s{ ${json} }",sep,$1,$2,$3,substr($0, index($0, $4));sep=","} ${suffix}'`;
-  /** @type Thenable<readonly (vscode.QuickPickItem & {value: string})[]> */
+
   return new Promise((resolve, reject) => {
     subprocess.exec(rrps, (error, stdout, stderr) => {
       if (error) {
