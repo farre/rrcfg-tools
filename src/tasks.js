@@ -5,9 +5,12 @@ const vscode = require("vscode");
 const subprocess = require("child_process");
 
 function getAlternatives() {
-  const rrps = `rr ps | awk 'BEGIN { OFS = ","; printf "["; sep="" } NR!=1 { printf "%s{ \\"value\\": %d,\\"label\\": \\"%d\\",\\"description\\": \\"%s\\",\\"detail\\": \\"foo\\"}",sep,$1,$3,substr($0, index($0, $4));sep=","}END {print "]"}'`;
+  const prefix = `'BEGIN { OFS = ","; printf "["; sep="" } NR!=1`;
+  const suffix = `END { print "]" }`;
+  const json = `\\"pid\\": %d,\\"ppid\\": \\"%s\\",\\"exit\\": \\"%d\\",\\"cmd\\": \\"%s\\"`;
+  const rrps = `rr ps | awk ${prefix} { printf "%s{ ${json} }",sep,$1,$2,$3,substr($0, index($0, $4));sep=","} ${suffix}'`;
   /** @type Thenable<readonly (vscode.QuickPickItem & {value: string})[]> */
-  let picks = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     subprocess.exec(rrps, (error, stdout, stderr) => {
       if (error) {
         reject(stderr);
@@ -15,8 +18,18 @@ function getAlternatives() {
         resolve(JSON.parse(stdout));
       }
     });
-  });
-  return picks;
+  }).then((picks) =>
+    picks.map(({ pid, ppid, exit, cmd }) => {
+      return {
+        value: pid,
+        label: `${cmd.split(" ") ?? cmd}`,
+        description: `PID: ${pid}, PPID: ${
+          ppid === "--" ? "--" : +ppid
+        }, EXIT: ${exit}`,
+        detail: cmd,
+      };
+    })
+  );
 }
 
 const Action = {
@@ -119,6 +132,7 @@ class TaskTerminal {
       const options = {
         canPickMany: false,
         ignoreFocusOut: true,
+        title: "Select process to debug",
       };
       vscode.window
         .showQuickPick(getAlternatives(), options)
@@ -132,12 +146,12 @@ class TaskTerminal {
             "-k",
           ]);
           process.stdout.on("data", (data) => {
-            for(const line of `${data}`.split("\n")) {
+            for (const line of `${data}`.split("\n")) {
               this.writeEmitter.fire(`${line}\r\n`);
             }
           });
           process.stderr.on("data", (data) => {
-            for(const line of `${data}`.split("\n")) {
+            for (const line of `${data}`.split("\n")) {
               this.writeEmitter.fire(`${line}\r\n`);
             }
           });
@@ -149,7 +163,7 @@ class TaskTerminal {
             this.closeEmitter.fire(0);
           });
           process.on("error", (err) => {
-            for(const line of `${err}`.split("\n")) {
+            for (const line of `${err}`.split("\n")) {
               this.writeEmitter.fire(`${line}\r\n`);
               console.log(`${line}`);
             }
