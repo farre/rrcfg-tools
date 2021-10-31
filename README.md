@@ -42,9 +42,9 @@ This extension provides the following VS Code tasks:
 
 ## Extension Snippets
 
-This extension provides the following VS Code snippet:
+This extension provides the following VS Code configuratoinSnippet:
 
-- `TODO(farre): what is the name of the snippet`: Template for generate a [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json` configuration compatible with running [rr](https://rr-project.org/) from this extension.
+- `rrcfg configuration for cppdbg`: Template for generate a [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json` configuration compatible with running [rr](https://rr-project.org/) from this extension.
 
 ## Extension Short-Cuts
 
