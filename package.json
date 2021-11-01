@@ -22,7 +22,7 @@
   "directories": {
     "src": "./src"
   },
-  "publisher": "farre",
+  "publisher": "farrese",
   "contributes": {
     "configuration": [
       {
