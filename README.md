@@ -63,7 +63,7 @@ Like any VS Code command, these can be set to arbitrary keyboard inputs. `revers
 
 ## Installation
 
-Download the latest [release](https://github.com/farre/rrcfg-tools/releases/tag/v1.0.0) and install extension from file. Marketplace submission pending.
+Download the latest `rrcfg-tools-x.y.z.vsix` from [release](https://github.com/farre/rrcfg-tools/releases/latest) and install extension from file. Marketplace submission pending.
 
 ## Configuring a project using the extension and start a debug session
 
