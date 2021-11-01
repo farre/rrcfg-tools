@@ -112,20 +112,24 @@
     ],
     "keybindings": [
       {
+        "command": "rrcfg-tools.watch",
+        "key": "Ctrl+F1"
+      },
+      {
         "command": "rrcfg-tools.reverse-continue",
-        "key": "ctrl+F5"
+        "key": "Ctrl+F5"
       },
       {
         "command": "rrcfg-tools.reverse-next",
-        "key": "ctrl+F10"
+        "key": "Ctrl+F10"
       },
       {
-        "command": "rrcfg-tools.watch",
-        "key": "ctrl+F1"
+        "command": "rrcfg-tools.reverse-step",
+        "key": "Ctrl+F11"
       },
       {
         "command": "rrcfg-tools.reverse-finish",
-        "key": "ctrl+F11"
+        "key": "Ctrl+Shift+F11"
       }
     ],
     "debuggers": [

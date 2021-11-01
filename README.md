@@ -57,9 +57,10 @@ This extension provides the following default VS Code short-cuts:
 - `Ctrl-F1`: set watchpoint
 - `Ctrl-F5`: reverse-next
 - `Ctrl-F10`: reverse-continue
-- `Ctrl-F11`: reverse-finish
+- `Ctrl-F11`: reverse-step
+- `Ctrl-Shift-F11`: reverse-finish
 
-Like any VS Code command, these can be set to arbitrary keyboard inputs. `reverse-step` is left to be configured by the user.
+Like any VS Code command, these can be set to arbitrary keyboard inputs.
 
 ## Installation
 
