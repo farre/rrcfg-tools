@@ -93,9 +93,18 @@ Currently these limitations are known:
 
 First release of `rrcfg-tools`!
 
-This release introduce following changes:
+This release introduce the following changes:
 
 - Configuring debugging for [rr](https://rr-project.org/)
 - Starting and stopping using tasks usable from [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
 - Commands for interacting with [rr](https://rr-project.org/), with appropriate short-cuts
 - Easy template insertion for creating [rr](https://rr-project.org/) configuration for [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
+
+### 1.1.0
+
+New features for `rrcfg-tools`!
+
+This release introduce the following changes:
+
+- Setting watchpoints
+- Short-cuts for all exposed commands.
