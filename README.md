@@ -70,7 +70,7 @@ Download the latest `rrcfg-tools-x.y.z.vsix` from [release](https://github.com/f
 
 The process of adding [rr](https://rr-project.org/) debugging is streamlined using this extension. The steps are as following:
 
-1. Got to the `Run and Debug` view and create a `launch.json` file if there isn't any. Make sure to select the `C++` option.
+1. Go to the `Run and Debug` view and create a `launch.json` file if there isn't any. Make sure to select the `C++` option.
 2. Go to the `launch.json` file in the `.vscode` directory and add a configuration by pressing `Add Configuration...` or by pressing `Ctrl-Space` while having the cursor in the file. Select the configuration `rrcfg configuration for cppdbg`.
 3. In the settings for `rrcfg-tools` add `Workspace` settings for all extension settings. `hostname` and `port` have sane defaults, currently the only valid hostname is 'localhost'. `rrcfg-tools.bin` needs to contain the full path to the binary and `rrcfg-tools.cwd` needs to contain the full path to the directory where the binary resides.
 4. Record something using [rr](https://rr-project.org/)!
