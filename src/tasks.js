@@ -156,12 +156,8 @@ class TaskTerminal {
               this.writeEmitter.fire(`${line}\r\n`);
             }
           });
-          process.on("close", (code) => {
-            // When process dies (i.e. when we tell rr to stop
-            // replaying, this is event handler for that. We say
-            // closeEmitter.fire(0) to tell vscode we can shut
-            //  this pty down)
-            this.closeEmitter.fire(0);
+          process.on("exit", (exit_code) => {
+            this.closeEmitter.fire();
           });
           process.on("error", (err) => {
             for (const line of `${err}`.split("\n")) {
