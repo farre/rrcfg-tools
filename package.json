@@ -22,6 +22,20 @@
   "directories": {
     "src": "./src"
   },
+  "author": {
+    "name": "Andreas Farre",
+    "email": "andreas@farre.se"
+  },
+  "maintainers": [
+    {
+      "name": "Andreas Farre",
+      "email": "andreas@farre.se"
+    },
+    {
+      "name": "Simon Farre",
+      "email": "simon.farre.cx@gmail.com"
+    }
+  ],
   "publisher": "farrese",
   "contributes": {
     "configuration": [
