@@ -55,8 +55,8 @@ This extension provides the following VS Code configuratoinSnippet:
 This extension provides the following default VS Code short-cuts:
 
 - `Ctrl-F1`: set watchpoint
-- `Ctrl-F5`: reverse-next
-- `Ctrl-F10`: reverse-continue
+- `Ctrl-F5`: reverse-continue
+- `Ctrl-F10`: reverse-next
 - `Ctrl-F11`: reverse-step
 - `Ctrl-Shift-F11`: reverse-finish
 
@@ -108,3 +108,19 @@ This release introduce the following changes:
 
 - Setting watchpoints
 - Short-cuts for all exposed commands.
+
+### 1.1.1
+
+Bugfixes for `rrcfg-tools`!
+
+This release introduce the following changes:
+
+- Console output duplication bug fixed.
+
+### 1.1.2
+
+Documentation fixes for `rrcfg-tools`!
+
+This release introduce the following changes:
+
+- Wrong documentation for short-cuts.
