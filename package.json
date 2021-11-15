@@ -67,25 +67,54 @@
     "commands": [
       {
         "command": "rrcfg-tools.reverse-continue",
-        "title": "rr: reverse continue"
+        "title": "rr: reverse continue",
+        "shortTitle": "Rev-continue",
+        "icon": "$(debug-reverse-continue)"
       },
       {
         "command": "rrcfg-tools.reverse-step",
-        "title": "rr: reverse step"
+        "title": "rr: reverse step",
+        "shortTitle": "Rev-step"
       },
       {
         "command": "rrcfg-tools.reverse-next",
-        "title": "rr: reverse next"
+        "title": "rr: reverse next",
+        "shortTitle": "Rev-next",
+        "icon": "$(debug-step-back)"
       },
       {
         "command": "rrcfg-tools.reverse-finish",
-        "title": "rr: reverse finish"
+        "title": "rr: reverse finish",
+        "shortTitle": "Rev-finish",
+        "icon": "$(debug-step-out)"
       },
       {
         "command": "rrcfg-tools.watch",
-        "title": "rr: watch variable"
+        "title": "rr: watch variable",
+        "shortTitle": "Watch variable",
+        "icon": "$(eye-watch)"
       }
     ],
+    "menus": {
+      "debug/toolBar": [
+        {
+          "command": "rrcfg-tools.reverse-continue",
+          "group": "rr"
+        },
+        {
+          "command": "rrcfg-tools.reverse-next",
+          "group": "rr"
+        },
+        {
+          "command": "rrcfg-tools.reverse-finish",
+          "group": "rr"
+        },
+        {
+          "command": "rrcfg-tools.watch",
+          "group": "rr"
+        }
+      ]
+    },
     "taskDefinitions": [
       {
         "type": "rrcfg-tools",
