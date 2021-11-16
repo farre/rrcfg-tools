@@ -60,6 +60,11 @@
             "type": "string",
             "description": "Location of binary to debug",
             "default": "${workspaceRoot}"
+          },
+          "rrcfg-tools.rr-path" : {
+            "type": "string",
+            "description": "Full path of rr binary (defaults to 'rr')",
+            "default": "rr"
           }
         }
       }

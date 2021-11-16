@@ -128,17 +128,18 @@ class TaskTerminal {
         reject("rr is already running");
         return;
       }
-      let configuration = vscode.workspace.getConfiguration("rrcfg-tools");
-      let port = configuration.get("port");
+      const configuration = vscode.workspace.getConfiguration("rrcfg-tools");
+      const port = configuration.get("port");
       const options = {
         canPickMany: false,
         ignoreFocusOut: true,
         title: "Select process to debug",
       };
+      const rrPath = configuration.get("rr-path");
       vscode.window
         .showQuickPick(getAlternatives(), options)
         .then((selection) => {
-          let process = subprocess.spawn("rr", [
+          let process = subprocess.spawn(rrPath, [
             "replay",
             "-s",
             `${port}`,
