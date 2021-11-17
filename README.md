@@ -7,11 +7,12 @@ This extension adds functionality for configuring, starting, and interacting wit
 - Configuring basic [rr](https://rr-project.org/) settings.
 - Snippets for creating a [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) launch configuration
 - Tasks for starting and stopping [rr](https://rr-project.org/) debugging.
-- Short-cuts for `reverse-next` and `reverse-continue`
+- Short-cuts for [rr](https://rr-project.org/) commands.
+- Extended UI for [rr](https://rr-project.org/) commands.
 
 ## Requirements
 
-To use this extension [rr](https://rr-project.org/) needs to be installed and accessible from the `PATH`.
+To use this extension [rr](https://rr-project.org/) needs to be installed.
 
 ## Extension Settings
 
@@ -19,8 +20,10 @@ This extension provides the following VS Code settings:
 
 - `rrcfg-tools.hostname`: the hostname where [rr](https://rr-project.org/) is running
 - `rrcfg-tools.port`: the port where [rr](https://rr-project.org/) listens
-- `rrcfg-tools.cwd`: the full path to the binary to be debugged
 - `rrcfg-tools.bin`: the full path to the directory of the binary to be debugged
+- `rrcfg-tools.cwd`: the full path to the binary to be debugged
+- `rrcfg-tools.path`: the full path to [rr](https://rr-project.org/)
+- `rrcfg-tools.trace-path-pick`: how to select traces
 
 ## Extension Commands
 
@@ -64,20 +67,23 @@ Like any VS Code command, these can be set to arbitrary keyboard inputs.
 
 ## Installation
 
-Download the latest `rrcfg-tools-x.y.z.vsix` from [release](https://github.com/farre/rrcfg-tools/releases/latest) and install extension from file. Marketplace submission pending.
+Download the latest `rrcfg-tools-x.y.z.vsix` from [release](https://github.com/farre/rrcfg-tools/releases/latest) and install extension from file or install it directly from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=farrese.rrcfg-tools).
 
 ## Configuring a project using the extension and start a debug session
 
 The process of adding [rr](https://rr-project.org/) debugging is streamlined using this extension. The steps are as following:
 
-1. Go to the `Run and Debug` view and create a `launch.json` file if there isn't any. Make sure to select the `C++` option. This can be a bit awkward, and it helps if you do it when you have a `C++` file in your editor. If you already have a `launch.json` you can skip this step.
+1. Go to the `Run and Debug` view and create a `launch.json` file if there isn't any. If you already have a `launch.json` you can skip this step.
 2. Go to the `launch.json` file in the `.vscode` directory and add a configuration by pressing `Add Configuration...` or by pressing `Ctrl-Space` while having the cursor in the file. Select the configuration `rrcfg configuration for cppdbg`.
 3. In the settings for `rrcfg-tools` add `Workspace` settings for all extension settings. `hostname` and `port` have sane defaults, currently the only valid hostname is 'localhost'. `rrcfg-tools.bin` needs to contain the full path to the binary and `rrcfg-tools.cwd` needs to contain the full path to the directory where the binary resides.
+   1. Optionally configure path to [rr](https://rr-project.org/) if it isn't in `$PATH`.
+   2. Optionally configure how to select traces.
 4. Record something using [rr](https://rr-project.org/)!
 5. Go to the `Run and Debug` view, from the drop down choose `rr`, the press `F5` or `Start Debugging`
-6. A quick pick drop down will ask for the process to debug.
+6. Depending on how traces are selected, you will either be prompted to write the path to a trace or select one from a list.
+7. A quick pick drop down will ask for the process to debug.
 
-This will start a debug session using [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running [rr](https://rr-project.org/) but with [rr](https://rr-project.org/) as debugger. The regular UI and short-cuts work as expected, but `Ctrl-F5` and `Ctrl-F10` has been added, as well as commands for `reverse-step` and `reverse-finish`.
+This will start a debug session using [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running [rr](https://rr-project.org/) but with [rr](https://rr-project.org/) as debugger. The regular UI and short-cuts work as expected, and the extended UI lets you interact with [rr](https://rr-project.org/) as well as the added [short-cuts](#extension-short-cuts).
 
 ## Known Issues
 
@@ -89,38 +95,4 @@ Currently these limitations are known:
 
 ## Release Notes
 
-### 1.0.0
-
-First release of `rrcfg-tools`!
-
-This release introduce the following changes:
-
-- Configuring debugging for [rr](https://rr-project.org/)
-- Starting and stopping using tasks usable from [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
-- Commands for interacting with [rr](https://rr-project.org/), with appropriate short-cuts
-- Easy template insertion for creating [rr](https://rr-project.org/) configuration for [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) `launch.json`
-
-### 1.1.0
-
-New features for `rrcfg-tools`!
-
-This release introduce the following changes:
-
-- Setting watchpoints
-- Short-cuts for all exposed commands.
-
-### 1.1.1
-
-Bugfixes for `rrcfg-tools`!
-
-This release introduce the following changes:
-
-- Console output duplication bug fixed.
-
-### 1.1.2
-
-Documentation fixes for `rrcfg-tools`!
-
-This release introduce the following changes:
-
-- Wrong documentation for short-cuts.
+See the [Changelog](CHANGELOG.md).
