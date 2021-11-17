@@ -4,12 +4,30 @@ const path = require("path");
 const vscode = require("vscode");
 const subprocess = require("child_process");
 
-/** @type {() => Thenable<readonly (vscode.QuickPickItem & {value: string})[]>} */
-function getAlternatives() {
+/**
+ * @returns { Thenable<string[]> }
+ */
+function getTraces() {
+  return new Promise((resolve, reject) => {
+    subprocess.exec(`rr ls -l -t -r`, (err, stdout, stderr) => {
+      if(err) {
+        reject(stderr);
+      } else {
+        let lines = stdout.split("\n").splice(1);
+        const traces = lines.map(line => line.split(" ")[0].trim()).filter(trace => trace.length > 0);
+        resolve(traces);
+      }
+    })
+  })
+}
+
+/** @type {(trace: string) => Thenable<readonly (vscode.QuickPickItem & {value: string})[]>} */
+function getTraceInfo(trace) {
   const prefix = `'BEGIN { OFS = ","; printf "["; sep="" } NR!=1`;
   const suffix = `END { print "]" }`;
+
   const json = `\\"pid\\": %d,\\"ppid\\": \\"%s\\",\\"exit\\": \\"%d\\",\\"cmd\\": \\"%s\\"`;
-  const rrps = `rr ps | awk ${prefix} { printf "%s{ ${json} }",sep,$1,$2,$3,substr($0, index($0, $4));sep=","} ${suffix}'`;
+  const rrps = `rr ps ${trace} | awk ${prefix} { printf "%s{ ${json} }",sep,$1,$2,$3,substr($0, index($0, $4));sep=","} ${suffix}'`;
 
   return new Promise((resolve, reject) => {
     subprocess.exec(rrps, (error, stdout, stderr) => {
@@ -137,14 +155,15 @@ class TaskTerminal {
       };
       const rrPath = configuration.get("rr-path");
       vscode.window
-        .showQuickPick(getAlternatives(), options)
-        .then((selection) => {
+        .showQuickPick(getTraces(), options)
+        .then(async (tracePicked) => {
+          const selection = await getTraceInfo(tracePicked);
           let process = subprocess.spawn(rrPath, [
             "replay",
             "-s",
             `${port}`,
             "-p",
-            `${selection.value}`,
+            `${selection[0].value}`,
             "-k",
           ]);
           process.stdout.on("data", (data) => {
