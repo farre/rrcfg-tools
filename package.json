@@ -65,6 +65,13 @@
             "type": "string",
             "description": "Full path of rr binary (defaults to 'rr')",
             "default": "rr"
+          },
+          "rrcfg-tools.trace-path-pick": {
+            "type": "string",
+            "default": "RR_TRACE_DIR",
+            "description": "Setting for defining how to input trace directory",
+            "enum": ["RR_TRACE_DIR", "User provided"],
+            "enumDescriptions": ["Shows list of recorded traces that exists in RR_TRACE_DIR which user gets to pick from", "User gets to type in full path to the trace directory at start of debug"]
           }
         }
       }

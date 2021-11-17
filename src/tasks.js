@@ -10,15 +10,17 @@ const subprocess = require("child_process");
 function getTraces() {
   return new Promise((resolve, reject) => {
     subprocess.exec(`rr ls -l -t -r`, (err, stdout, stderr) => {
-      if(err) {
+      if (err) {
         reject(stderr);
       } else {
         let lines = stdout.split("\n").splice(1);
-        const traces = lines.map(line => line.split(" ")[0].trim()).filter(trace => trace.length > 0);
+        const traces = lines
+          .map((line) => line.split(" ")[0].trim())
+          .filter((trace) => trace.length > 0);
         resolve(traces);
       }
-    })
-  })
+    });
+  });
 }
 
 /** @type {(trace: string) => Thenable<readonly (vscode.QuickPickItem & {value: string})[]>} */
@@ -154,10 +156,10 @@ class TaskTerminal {
         title: "Select process to debug",
       };
       const rrPath = configuration.get("rr-path");
-      vscode.window
-        .showQuickPick(getTraces(), options)
-        .then(async (tracePicked) => {
-          const selection = await getTraceInfo(tracePicked);
+      const traceDir = configuration.get("trace-path-pick");
+
+      const tracePicked = (trace) => {
+        getTraceInfo(trace).then((selection) => {
           let process = subprocess.spawn(rrPath, [
             "replay",
             "-s",
@@ -188,6 +190,21 @@ class TaskTerminal {
 
           this.#process = process;
         });
+      };
+
+      switch (traceDir) {
+        case "RR_TRACE_DIR":
+          vscode.window.showQuickPick(getTraces(), options).then(tracePicked);
+          break;
+        case "User provided":
+          const opts = {
+            ignoreFocusOut: true,
+            prompt: "Full path to rr trace dir",
+            placeHolder: "/path/to/tracedir",
+          };
+          vscode.window.showInputBox(opts).then(tracePicked);
+          break;
+      }
     });
   }
 
