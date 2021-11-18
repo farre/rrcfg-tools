@@ -4,6 +4,11 @@ All notable changes to the "rrcfg-tools" extension will be documented in this fi
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-11-18
+
+### Fixed
+- Process selection bustage.
+
 ## [1.2.0] - 2021-11-18
 
 ### Added
