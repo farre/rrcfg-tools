@@ -167,7 +167,7 @@ class TaskTerminal {
               "-s",
               `${port}`,
               "-p",
-              `${selection[0].value}`,
+              `${selection.value}`,
               "-k",
             ]);
             process.stdout.on("data", (data) => {
