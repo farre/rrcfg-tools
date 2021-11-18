@@ -158,38 +158,40 @@ class TaskTerminal {
       const rrPath = configuration.get("rr-path");
       const traceDir = configuration.get("trace-path-pick");
 
-      const tracePicked = (trace) => {
-        getTraceInfo(trace).then((selection) => {
-          let process = subprocess.spawn(rrPath, [
-            "replay",
-            "-s",
-            `${port}`,
-            "-p",
-            `${selection[0].value}`,
-            "-k",
-          ]);
-          process.stdout.on("data", (data) => {
-            for (const line of `${data}`.split("\n")) {
-              this.writeEmitter.fire(`${line}\r\n`);
-            }
-          });
-          process.stderr.on("data", (data) => {
-            for (const line of `${data}`.split("\n")) {
-              this.writeEmitter.fire(`${line}\r\n`);
-            }
-          });
-          process.on("exit", (exit_code) => {
-            this.closeEmitter.fire();
-          });
-          process.on("error", (err) => {
-            for (const line of `${err}`.split("\n")) {
-              this.writeEmitter.fire(`${line}\r\n`);
-              console.log(`${line}`);
-            }
-          });
+      const tracePicked = (tracePath) => {
+        vscode.window
+          .showQuickPick(getTraceInfo(tracePath))
+          .then((selection) => {
+            let process = subprocess.spawn(rrPath, [
+              "replay",
+              "-s",
+              `${port}`,
+              "-p",
+              `${selection[0].value}`,
+              "-k",
+            ]);
+            process.stdout.on("data", (data) => {
+              for (const line of `${data}`.split("\n")) {
+                this.writeEmitter.fire(`${line}\r\n`);
+              }
+            });
+            process.stderr.on("data", (data) => {
+              for (const line of `${data}`.split("\n")) {
+                this.writeEmitter.fire(`${line}\r\n`);
+              }
+            });
+            process.on("exit", (exit_code) => {
+              this.closeEmitter.fire();
+            });
+            process.on("error", (err) => {
+              for (const line of `${err}`.split("\n")) {
+                this.writeEmitter.fire(`${line}\r\n`);
+                console.log(`${line}`);
+              }
+            });
 
-          this.#process = process;
-        });
+            this.#process = process;
+          });
       };
 
       switch (traceDir) {
