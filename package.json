@@ -2,7 +2,7 @@
   "name": "rrcfg-tools",
   "displayName": "rr configuration tools",
   "description": "Tools for configuring and interacting with rr",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/farre/rrcfg-tools.git"
@@ -61,7 +61,7 @@
             "description": "Location of binary to debug",
             "default": "${workspaceRoot}"
           },
-          "rrcfg-tools.rr-path" : {
+          "rrcfg-tools.rr-path": {
             "type": "string",
             "description": "Full path of rr binary (defaults to 'rr')",
             "default": "rr"
@@ -70,8 +70,14 @@
             "type": "string",
             "default": "RR_TRACE_DIR",
             "description": "Setting for defining how to input trace directory",
-            "enum": ["RR_TRACE_DIR", "User provided"],
-            "enumDescriptions": ["Shows list of recorded traces that exists in RR_TRACE_DIR which user gets to pick from", "User gets to type in full path to the trace directory at start of debug"]
+            "enum": [
+              "RR_TRACE_DIR",
+              "User provided"
+            ],
+            "enumDescriptions": [
+              "Shows list of recorded traces that exists in RR_TRACE_DIR which user gets to pick from",
+              "User gets to type in full path to the trace directory at start of debug"
+            ]
           }
         }
       }
