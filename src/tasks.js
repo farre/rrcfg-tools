@@ -169,6 +169,7 @@ class TaskTerminal {
               "-p",
               `${selection.value}`,
               "-k",
+              `${tracePath}`,
             ]);
             process.stdout.on("data", (data) => {
               for (const line of `${data}`.split("\n")) {
