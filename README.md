@@ -2,6 +2,10 @@
 
 This extension adds functionality for configuring, starting, and interacting with the [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running [rr](https://rr-project.org/).
 
+## News
+
+We are currently working on another extension that in the end will replace this extension. The development of that extension can be followed at [midas on GitHub](https://github.com/farre/midas/)
+
 ## Features
 
 - Configuring basic [rr](https://rr-project.org/) settings.
@@ -96,3 +100,8 @@ Currently these limitations are known:
 ## Release Notes
 
 See the [Changelog](CHANGELOG.md).
+
+## Contributors
+[farre](https://github.com/farre),
+[theIDinside](https://github.com/theIDinside),
+[dmitry-j-mikhin](https://github.com/dmitry-j-mikhin)
