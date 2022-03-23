@@ -4,6 +4,13 @@ All notable changes to the "rrcfg-tools" extension will be documented in this fi
 
 ## [Unreleased]
 
+## [1.2.2] - 2021-11-18
+
+### Fixed
+- Updated README with contributors list.
+- Added news about [midas](https://github.com/farre/midas/)
+- [dmitry-j-mikhin](https://github.com/dmitry-j-mikhin) fixed a trace selection issue.
+
 ## [1.2.1] - 2021-11-18
 
 ### Fixed
