@@ -1,3 +1,7 @@
+# Disclaimer
+
+This project has been abandoned in favor of [midas](https://github.com/farre/midas/), the Visual Studio Code Debug Adapter.
+
 # rrcfg-tools README
 
 This extension adds functionality for configuring, starting, and interacting with the [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) while running [rr](https://rr-project.org/).
